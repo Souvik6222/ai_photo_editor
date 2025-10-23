@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picsart API Tools - Home</title>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); background-attachment: fixed; min-height: 100vh; display: flex; margin: 0; position: relative; overflow-x: hidden; line-height: 1.6; color: #1e293b; }
+.particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.particle { position: absolute; width: 10px; height: 10px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; animation: float 15s infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0) translateX(0); } 25% { transform: translateY(-100px) translateX(50px); } 50% { transform: translateY(-200px) translateX(-50px); } 75% { transform: translateY(-100px) translateX(100px); } }
+.sidebar { width: 280px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); height: 100vh; position: fixed; left: 0; top: 0; box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1); overflow-y: auto; z-index: 1000; transition: transform 0.3s ease; }
+.sidebar-header { padding: 30px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; }
+.sidebar-header h2 { font-size: 1.3em; margin: 0; font-weight: 600; }
+.sidebar-header p { font-size: 0.85em; margin: 5px 0 0 0; opacity: 0.9; }
+.sidebar-menu { padding: 20px 0; }
+.menu-item { padding: 14px 24px; margin: 2px 12px; color: #1e293b; text-decoration: none; display: flex; align-items: center; gap: 14px; transition: all 0.2s; cursor: pointer; border-radius: 10px; font-size: 0.9375rem; min-height: 48px; position: relative; }
+.menu-item::before { content: ''; position: absolute; left: -12px; top: 50%; transform: translateY(-50%); width: 4px; height: 0; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 0 2px 2px 0; transition: height 0.2s ease; }
+.menu-item:hover { background: rgba(102, 126, 234, 0.08); }
+.menu-item:hover::before { height: 24px; }
+.menu-item.active { background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.08)); font-weight: 600; color: #667eea; }
+.menu-item.active::before { height: 32px; }
+.menu-item-icon { font-size: 1.25rem; min-width: 24px; text-align: center; }
+.menu-item-text { flex: 1; }
+.menu-divider { height: 1px; background: linear-gradient(90deg, transparent, #e0e0e0, transparent); margin: 15px 20px; }
+.menu-section-title { padding: 16px 24px 12px; font-size: 0.6875rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.08em; }
+.menu-toggle { display: none; position: fixed; top: 20px; left: 20px; z-index: 1001; background: white; border: none; padding: 12px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); cursor: pointer; font-size: 1.5em; }
+.main-content { flex: 1; margin-left: 280px; padding: 40px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.home-content { display: block; padding: 60px 40px; }
+.hero-section { text-align: center; margin-bottom: 60px; animation: fadeIn 1s ease-out; }
+.hero-section h1 { font-size: 3.5em; color: white; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); }
+.hero-subtitle { font-size: 1.3em; color: rgba(255, 255, 255, 0.95); text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+.feature-card { background: rgba(255, 255, 255, 0.98); border-radius: 20px; padding: 40px 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); text-decoration: none; color: inherit; display: block; animation: slideUp 0.6s ease-out; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); }
+.feature-icon { font-size: 4em; margin-bottom: 20px; display: block; }
+.feature-card h3 { font-size: 1.5em; margin-bottom: 15px; color: #667eea; }
+.feature-card p { color: #666; line-height: 1.6; }
+@media (max-width: 968px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } .menu-toggle { display: block; } .main-content { margin-left: 0; padding: 80px 20px 20px 20px; } .home-content { padding: 80px 20px 20px 20px; } .hero-section h1 { font-size: 2.5em; } .features-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🎨 Picsart API</h2>
+            <p>Programmable Image Tools</p>
+        </div>
+        <nav class="sidebar-menu" aria-label="Main navigation">
+            <a href="home.html" class="menu-item active" aria-current="page">
+                <span class="menu-item-icon" aria-hidden="true">🏠</span>
+                <span class="menu-item-text">Home</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            <div class="menu-section-title">Image Tools</div>
+            
+            <a href="remove-bg.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">🖼️</span>
+                <span class="menu-item-text">Remove Background</span>
+            </a>
+            
+            <a href="enhancement.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">✨</span>
+                <span class="menu-item-text">Photo Enhancement</span>
+            </a>
+            
+            <a href="watermark.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">💧</span>
+                <span class="menu-item-text">Watermark</span>
+            </a>
+            
+            <a href="conversion.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">🔄</span>
+                <span class="menu-item-text">Conversion</span>
+            </a>
+            
+            <a href="utilities.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">🛠️</span>
+                <span class="menu-item-text">Image Upload</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <!-- Sidebar Advertisement -->
+            <div style="text-align: center; padding: 20px 10px;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '6239817a5426bca1b12532f991ab457e',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/6239817a5426bca1b12532f991ab457e/invoke.js"></script>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content home-content">
+        <div class="hero-section">
+            <h1>🎨 Welcome to Picsart API Tools</h1>
+            <p class="hero-subtitle">Professional Image Processing Powered by AI</p>
+            
+            <!-- Top Banner Ad -->
+            <div style="text-align: center; margin: 30px 0;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '88a30d558b0ce128650a58dd786d60f2',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/88a30d558b0ce128650a58dd786d60f2/invoke.js"></script>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <a href="remove-bg.html" class="feature-card">
+                <span class="feature-icon">🖼️</span>
+                <h3>Remove Background</h3>
+                <p>Instantly remove backgrounds from images with AI precision. Perfect for product photos and portraits.</p>
+                <span style="display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4caf50; color: white; border-radius: 5px; font-size: 0.8em;">✅ LIVE</span>
+            </a>
+
+            <a href="enhancement.html" class="feature-card">
+                <span class="feature-icon">✨</span>
+                <h3>Photo Enhancement</h3>
+                <p>Upscale images (2x) and enhance facial features with AI-powered tools.</p>
+                <span style="display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4caf50; color: white; border-radius: 5px; font-size: 0.8em;">✅ LIVE</span>
+            </a>
+
+            <a href="watermark.html" class="feature-card">
+                <span class="feature-icon">💧</span>
+                <h3>Watermark</h3>
+                <p>Add custom watermarks to protect your images. Adjust position, opacity, and padding.</p>
+                <span style="display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4caf50; color: white; border-radius: 5px; font-size: 0.8em;">✅ LIVE</span>
+            </a>
+
+            <a href="conversion.html" class="feature-card">
+                <span class="feature-icon">🔄</span>
+                <h3>Conversion Tools</h3>
+                <p>Vectorize images, import designs, and retrieve results. Three powerful conversion tools.</p>
+                <span style="display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4caf50; color: white; border-radius: 5px; font-size: 0.8em;">✅ LIVE</span>
+            </a>
+
+            <a href="utilities.html" class="feature-card">
+                <span class="feature-icon">🛠️</span>
+                <h3>Image Upload</h3>
+                <p>Upload images to Picsart cloud and get permanent shareable URLs for your images.</p>
+                <span style="display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4caf50; color: white; border-radius: 5px; font-size: 0.8em;">✅ LIVE</span>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        const particles = document.getElementById('particles');
+        if (particles) {
+            function createParticles() {
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                    particles.appendChild(particle);
+                }
+            }
+            createParticles();
+        }
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        if (menuToggle && sidebar) {
+            menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); });
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 968) {
+                    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

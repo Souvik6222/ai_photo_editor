@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Background - Picsart API</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+    line-height: 1.6;
+    color: #1e293b;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float 15s infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-100px) translateX(50px); }
+    50% { transform: translateY(-200px) translateX(-50px); }
+    75% { transform: translateY(-100px) translateX(100px); }
+}
+
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+}
+
+.sidebar-header h2 {
+    font-size: 1.3em;
+    margin: 0;
+    font-weight: 600;
+}
+
+.sidebar-header p {
+    font-size: 0.85em;
+    margin: 5px 0 0 0;
+    opacity: 0.9;
+}
+
+.sidebar-menu {
+    padding: 20px 0;
+}
+
+.menu-item {
+    padding: 14px 24px;
+    margin: 2px 12px;
+    color: #1e293b;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    min-height: 48px;
+    position: relative;
+}
+
+.menu-item::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 0;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 0 2px 2px 0;
+    transition: height 0.2s ease;
+}
+
+.menu-item:hover {
+    background: rgba(102, 126, 234, 0.08);
+}
+
+.menu-item:hover::before {
+    height: 24px;
+}
+
+.menu-item.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.08));
+    font-weight: 600;
+    color: #667eea;
+}
+
+.menu-item.active::before {
+    height: 32px;
+}
+
+.menu-item-icon {
+    font-size: 1.25rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.menu-item-text {
+    flex: 1;
+}
+
+.menu-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+    margin: 15px 20px;
+}
+
+.menu-section-title {
+    padding: 16px 24px 12px;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 30px;
+    padding: 50px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    max-width: 1000px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1.125rem;
+}
+
+.upload-area {
+    border: 3px dashed #667eea;
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-bottom: 20px;
+    background: linear-gradient(145deg, #f8f9ff, #ffffff);
+}
+
+.upload-area:hover {
+    border-color: #764ba2;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.upload-area.dragover {
+    background: linear-gradient(145deg, #e8e9ff, #f0f0ff);
+    border-color: #764ba2;
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.upload-area p {
+    font-size: 1.125rem;
+    color: #1e293b;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.upload-area .hint {
+    font-size: 0.9375rem;
+    color: #64748b;
+    margin-top: 16px;
+}
+
+#fileInput {
+    display: none;
+}
+
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    margin: 10px 5px;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+}
+
+.btn:disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #667eea;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.error {
+    background: linear-gradient(145deg, #fef2f2, #ffffff);
+    border: 2px solid #fecaca;
+    color: #dc2626;
+    padding: 20px 24px;
+    border-radius: 12px;
+    margin: 15px 0;
+    display: none;
+}
+
+.success {
+    background: linear-gradient(145deg, #f0fdf4, #ffffff);
+    border: 2px solid #bbf7d0;
+    color: #16a34a;
+    padding: 20px 24px;
+    border-radius: 12px;
+    margin: 15px 0;
+    display: none;
+}
+
+.preview-area {
+    display: none;
+    margin-top: 40px;
+}
+
+.preview-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.preview-box {
+    flex: 1;
+    min-width: 320px;
+    background: linear-gradient(145deg, #f8fafc, #ffffff);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+}
+
+.preview-box h3 {
+    margin-bottom: 16px;
+    color: #1e293b;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.preview-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+}
+
+.image-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.image-wrapper {
+    position: relative;
+    background: repeating-conic-gradient(#f1f5f9 0% 25%, white 0% 50%) 50% / 20px 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+}
+
+.stats {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    padding: 24px;
+    background: linear-gradient(145deg, #f8fafc, #ffffff);
+    border-radius: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 16px;
+    background: white;
+    border-radius: 12px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 6px;
+}
+
+.stat-item span:last-child {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 32px;
+}
+
+@media (max-width: 968px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .menu-toggle {
+        display: block;
+    }
+    .main-content {
+        margin-left: 0;
+        padding: 80px 20px 20px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .preview-box {
+        min-width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🎨 Picsart API</h2>
+            <p>Programmable Image Tools</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="home.html" class="menu-item">
+                <span class="menu-item-icon">🏠</span>
+                <span class="menu-item-text">Home</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            <div class="menu-section-title">Image Tools</div>
+            
+            <a href="remove-bg.html" class="menu-item active">
+                <span class="menu-item-icon">🖼️</span>
+                <span class="menu-item-text">Remove Background</span>
+            </a>
+            
+            <a href="enhancement.html" class="menu-item">
+                <span class="menu-item-icon">✨</span>
+                <span class="menu-item-text">Photo Enhancement</span>
+            </a>
+            
+            <a href="watermark.html" class="menu-item">
+                <span class="menu-item-icon">💧</span>
+                <span class="menu-item-text">Watermark</span>
+            </a>
+            
+            <a href="conversion.html" class="menu-item">
+                <span class="menu-item-icon">🔄</span>
+                <span class="menu-item-text">Conversion</span>
+            </a>
+            
+            <a href="utilities.html" class="menu-item">
+                <span class="menu-item-icon">🛠️</span>
+                <span class="menu-item-text">Image Upload</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <!-- Sidebar Advertisement -->
+            <div style="text-align: center; padding: 20px 10px;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '6239817a5426bca1b12532f991ab457e',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/6239817a5426bca1b12532f991ab457e/invoke.js"></script>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>✨ Background Remover Pro</h1>
+                <p class="subtitle">Remove backgrounds from images instantly with AI</p>
+            </div>
+            
+            <!-- Top Banner Ad -->
+            <div style="text-align: center; margin: 20px 0;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '88a30d558b0ce128650a58dd786d60f2',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/88a30d558b0ce128650a58dd786d60f2/invoke.js"></script>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📤</div>
+                <p>Click or drag & drop an image here</p>
+                <p class="hint">Supports JPG, PNG, WEBP • Max 10MB</p>
+            </div>
+            
+            <input type="file" id="fileInput" accept="image/*">
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">✨ Removing background with AI magic...</p>
+            </div>
+            
+            <div class="error" id="error"></div>
+            <div class="success" id="success"></div>
+            
+            <div class="preview-area" id="previewArea">
+                <div class="preview-container">
+                    <div class="preview-box">
+                        <h3>📷 Original Image</h3>
+                        <div class="image-wrapper">
+                            <img id="originalImg" alt="Original">
+                        </div>
+                    </div>
+                    <div class="preview-box">
+                        <h3>🎨 Result</h3>
+                        <div class="image-wrapper">
+                            <span class="image-badge">✨ AI Processed</span>
+                            <img id="resultImg" alt="Result">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats" id="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="fileSize">-</span>
+                        <span>File Size</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="dimensions">-</span>
+                        <span>Dimensions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="processTime">-</span>
+                        <span>Process Time</span>
+                    </div>
+                </div>
+                
+                <!-- Content Advertisement -->
+                <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(145deg, #f8f9ff, #ffffff); border-radius: 15px;">
+                    <script async="async" data-cfasync="false" src="//pl27910130.effectivegatecpm.com/bfad7f3288af73bf1c7d772d5671a0bd/invoke.js"></script>
+                    <div id="container-bfad7f3288af73bf1c7d772d5671a0bd"></div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn" id="downloadBtn">⬇️ Download Result</button>
+                    <button class="btn" id="newImageBtn">🔄 Upload New Image</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Shared JavaScript
+        const particles = document.getElementById('particles');
+        if (particles) {
+            function createParticles() {
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                    particles.appendChild(particle);
+                }
+            }
+            createParticles();
+        }
+
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        if (menuToggle && sidebar) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 968) {
+                    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function showError(message) {
+            const error = document.getElementById('error');
+            const success = document.getElementById('success');
+            if (error) {
+                error.textContent = '❌ ' + message;
+                error.style.display = 'block';
+                if (success) success.style.display = 'none';
+                setTimeout(() => {
+                    error.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function showSuccess(message = '✅ Processing completed successfully!') {
+            const success = document.getElementById('success');
+            const error = document.getElementById('error');
+            if (success) {
+                success.textContent = message;
+                success.style.display = 'block';
+                if (error) error.style.display = 'none';
+                setTimeout(() => {
+                    success.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // API Configuration
+        const API_KEY = 'paat-txzJF6XHVCgJCUU8Fy0oBXEBmIq'; // Your Picsart API key
+        const API_ENDPOINT = 'https://api.picsart.io/tools/1.0/removebg';
+
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const loading = document.getElementById('loading');
+        const previewArea = document.getElementById('previewArea');
+        const originalImg = document.getElementById('originalImg');
+        const resultImg = document.getElementById('resultImg');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newImageBtn = document.getElementById('newImageBtn');
+        const stats = document.getElementById('stats');
+        const fileSize = document.getElementById('fileSize');
+        const dimensions = document.getElementById('dimensions');
+        const processTime = document.getElementById('processTime');
+
+        let resultUrl = '';
+        let startTime = 0;
+
+        // Upload Area Click
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImage(file);
+            } else {
+                showError('Please drop a valid image file');
+            }
+        });
+
+        // File Input Change
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleImage(file);
+        });
+
+        // Handle Image Processing
+        async function handleImage(file) {
+            // Validate file size
+            if (file.size > 10 * 1024 * 1024) {
+                showError('File size exceeds 10MB limit');
+                return;
+            }
+
+            startTime = Date.now();
+
+            // Show original image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.src = e.target.result;
+                const img = new Image();
+                img.onload = () => {
+                    dimensions.textContent = `${img.width}x${img.height}`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            fileSize.textContent = formatFileSize(file.size);
+
+            // Show loading
+            uploadArea.style.display = 'none';
+            loading.style.display = 'block';
+            previewArea.style.display = 'none';
+
+            try {
+                // API key is configured and ready
+
+                // Prepare form data with all parameters
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('output_type', 'cutout');
+                formData.append('bg_blur', '0');
+                formData.append('scale', 'fit');
+                formData.append('auto_center', 'false');
+                formData.append('stroke_size', '0');
+                formData.append('stroke_color', 'FFFFFF');
+                formData.append('stroke_opacity', '100');
+                formData.append('shadow', 'disabled');
+                formData.append('shadow_opacity', '20');
+                formData.append('shadow_blur', '50');
+                formData.append('format', 'PNG');
+
+                // API Request
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'X-Picsart-API-Key': API_KEY
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success' && data.data && data.data.url) {
+                    resultUrl = data.data.url;
+                    resultImg.src = resultUrl;
+                    
+                    const endTime = Date.now();
+                    const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+                    processTime.textContent = `${timeTaken}s`;
+                    
+                    loading.style.display = 'none';
+                    previewArea.style.display = 'block';
+                    stats.style.display = 'block';
+                    showSuccess('✅ Background removed successfully!');
+                } else {
+                    throw new Error(data.message || 'Failed to remove background');
+                }
+            } catch (err) {
+                loading.style.display = 'none';
+                uploadArea.style.display = 'block';
+                showError(err.message);
+                console.error(err);
+            }
+        }
+
+        // Download Result
+        downloadBtn.addEventListener('click', async () => {
+            if (resultUrl) {
+                try {
+                    downloadBtn.disabled = true;
+                    downloadBtn.textContent = '⏳ Downloading...';
+                    
+                    const response = await fetch(resultUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `background-removed-${Date.now()}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    downloadBtn.textContent = '✅ Downloaded!';
+                    setTimeout(() => {
+                        downloadBtn.disabled = false;
+                        downloadBtn.textContent = '⬇️ Download Result';
+                    }, 2000);
+                } catch (err) {
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = '⬇️ Download Result';
+                    showError('Failed to download image');
+                }
+            }
+        });
+
+        // Upload New Image
+        newImageBtn.addEventListener('click', () => {
+            previewArea.style.display = 'none';
+            stats.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            resultUrl = '';
+        });
+    </script>
+</body>
+</html>

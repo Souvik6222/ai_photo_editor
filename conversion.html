@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format Conversion - Picsart API</title>
+    <link rel="stylesheet" href="shared-styles.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🎨 Picsart API</h2>
+            <p>Programmable Image Tools</p>
+        </div>
+        <nav class="sidebar-menu" aria-label="Main navigation">
+            <a href="home.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">🏠</span>
+                <span class="menu-item-text">Home</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            <div class="menu-section-title">Image Tools</div>
+            
+            <a href="remove-bg.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">🖼️</span>
+                <span class="menu-item-text">Remove Background</span>
+            </a>
+            
+            <a href="enhancement.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">✨</span>
+                <span class="menu-item-text">Photo Enhancement</span>
+            </a>
+            
+            <a href="watermark.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">💧</span>
+                <span class="menu-item-text">Watermark</span>
+            </a>
+            
+            <a href="conversion.html" class="menu-item active" aria-current="page">
+                <span class="menu-item-icon" aria-hidden="true">🔄</span>
+                <span class="menu-item-text">Conversion</span>
+            </a>
+            
+            <a href="utilities.html" class="menu-item">
+                <span class="menu-item-icon" aria-hidden="true">🛠️</span>
+                <span class="menu-item-text">Image Upload</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <!-- Sidebar Advertisement -->
+            <div style="text-align: center; padding: 20px 10px;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '6239817a5426bca1b12532f991ab457e',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/6239817a5426bca1b12532f991ab457e/invoke.js"></script>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>🔄 Format Conversion</h1>
+                <p class="subtitle">Convert images between different formats</p>
+            </div>
+            
+            <!-- Top Banner Ad -->
+            <div style="text-align: center; margin: 20px 0;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '88a30d558b0ce128650a58dd786d60f2',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/88a30d558b0ce128650a58dd786d60f2/invoke.js"></script>
+            </div>
+            
+            <!-- Conversion Type Selection -->
+            <div class="conversion-type-container" role="region" aria-labelledby="conversion-type-heading">
+                <h2 id="conversion-type-heading" class="conversion-type-title">Choose Conversion Type</h2>
+                <div class="conversion-buttons-wrapper" role="tablist">
+                    <button class="btn conversion-type-btn active" 
+                            role="tab"
+                            aria-selected="true"
+                            aria-controls="upload-panel"
+                            data-type="vectorizer" 
+                            id="vectorizerBtn">
+                        <span aria-hidden="true">🎨</span>
+                        <span>Image Vectorizer</span>
+                    </button>
+                    <button class="btn conversion-type-btn" 
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="upload-panel"
+                            data-type="design-import" 
+                            id="designImportBtn">
+                        <span aria-hidden="true">📥</span>
+                        <span>Design Import</span>
+                    </button>
+                    <button class="btn conversion-type-btn" 
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="result-panel"
+                            data-type="get-result" 
+                            id="getResultBtn">
+                        <span aria-hidden="true">📋</span>
+                        <span>Get Design Result</span>
+                    </button>
+                </div>
+                <p class="type-description" role="status" aria-live="polite" id="typeDescription">
+                    Convert raster images to vector format (SVG)
+                </p>
+            </div>
+            
+            <!-- Get Result Section (Hidden by default) -->
+            <div id="getResultSection" class="get-result-section" style="display: none;" role="region" aria-labelledby="result-heading">
+                <h3 id="result-heading" class="get-result-title">
+                    <span aria-hidden="true">🔑</span>
+                    <span>Enter Transaction ID</span>
+                </h3>
+                <div class="id-input-wrapper">
+                    <input type="text" 
+                           id="designIdInput" 
+                           class="id-input"
+                           placeholder="Enter transaction ID from Design Import"
+                           aria-label="Transaction ID input"
+                           autocomplete="off">
+                    <button class="btn fetch-btn" id="fetchResultBtn" aria-label="Fetch design result">
+                        <span aria-hidden="true">📋</span>
+                        <span>Get Result</span>
+                    </button>
+                </div>
+                <p class="id-hint">
+                    Enter the transaction ID you received from Design Import
+                </p>
+            </div>
+            
+            <div class="upload-area" 
+                 id="uploadArea" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Click or drag and drop to upload image">
+                <div class="upload-icon" aria-hidden="true">📤</div>
+                <p>Click or drag & drop an image here</p>
+                <div class="hint">
+                    <span class="hint-item">JPG</span>
+                    <span class="hint-item">PNG</span>
+                    <span class="hint-item">WEBP</span>
+                    <span class="hint-item">Max 10MB</span>
+                </div>
+            </div>
+            
+            <input type="file" id="fileInput" accept="image/*" aria-label="File upload input">
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">🔄 Converting format...</p>
+            </div>
+            
+            <div class="error" id="error"></div>
+            <div class="success" id="success"></div>
+            
+            <div class="preview-area" id="previewArea">
+                <div class="preview-container">
+                    <div class="preview-box">
+                        <h3>📷 Original Image</h3>
+                        <div class="image-wrapper">
+                            <img id="originalImg" alt="Original">
+                        </div>
+                    </div>
+                    <div class="preview-box">
+                        <h3>🎨 Result</h3>
+                        <div class="image-wrapper">
+                            <span class="image-badge">✨ AI Processed</span>
+                            <img id="resultImg" alt="Result">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats" id="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="fileSize">-</span>
+                        <span>File Size</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="dimensions">-</span>
+                        <span>Dimensions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="processTime">-</span>
+                        <span>Process Time</span>
+                    </div>
+                </div>
+                
+                <!-- Content Advertisement -->
+                <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(145deg, #f8f9ff, #ffffff); border-radius: 15px;">
+                    <script async="async" data-cfasync="false" src="//pl27910130.effectivegatecpm.com/bfad7f3288af73bf1c7d772d5671a0bd/invoke.js"></script>
+                    <div id="container-bfad7f3288af73bf1c7d772d5671a0bd"></div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn" id="downloadBtn">⬇️ Download Result</button>
+                    <button class="btn" id="newImageBtn">🔄 Upload New Image</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared-scripts.js"></script>
+    <script>
+        // API Configuration
+        const API_KEY = 'paat-txzJF6XHVCgJCUU8Fy0oBXEBmIq'; // Picsart API key
+        const API_ENDPOINT_VECTORIZER = 'https://api.picsart.io/tools/1.0/vectorizer';
+        const API_ENDPOINT_DESIGN_IMPORT = 'https://api.picsart.io/tools/1.0/design2replay';
+        const API_ENDPOINT_GET_RESULT = 'https://api.picsart.io/tools/1.0/design2replay/';
+
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const loading = document.getElementById('loading');
+        const previewArea = document.getElementById('previewArea');
+        const originalImg = document.getElementById('originalImg');
+        const resultImg = document.getElementById('resultImg');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newImageBtn = document.getElementById('newImageBtn');
+        const stats = document.getElementById('stats');
+        const fileSize = document.getElementById('fileSize');
+        const dimensions = document.getElementById('dimensions');
+        const processTime = document.getElementById('processTime');
+        const typeDescription = document.getElementById('typeDescription');
+        const getResultSection = document.getElementById('getResultSection');
+        const designIdInput = document.getElementById('designIdInput');
+        const fetchResultBtn = document.getElementById('fetchResultBtn');
+
+        let resultUrl = '';
+        let startTime = 0;
+        let selectedType = 'vectorizer'; // Default selection
+        let designId = ''; // Store design ID from Design Import
+
+        // Conversion Type Selection
+        const conversionBtns = document.querySelectorAll('.conversion-type-btn');
+        conversionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class and aria-selected from all buttons
+                conversionBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                // Add active class and aria-selected to clicked button
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+                // Update selected type
+                selectedType = btn.getAttribute('data-type');
+                
+                // Update description and UI
+                if (selectedType === 'vectorizer') {
+                    typeDescription.textContent = 'Convert raster images to vector format (SVG)';
+                    uploadArea.style.display = 'block';
+                    getResultSection.style.display = 'none';
+                } else if (selectedType === 'design-import') {
+                    typeDescription.textContent = 'Import design and get a design ID for later retrieval';
+                    uploadArea.style.display = 'block';
+                    getResultSection.style.display = 'none';
+                } else if (selectedType === 'get-result') {
+                    typeDescription.textContent = 'Retrieve design result using design ID';
+                    uploadArea.style.display = 'none';
+                    getResultSection.style.display = 'block';
+                }
+            });
+        });
+
+        // Fetch Result by Transaction ID
+        fetchResultBtn.addEventListener('click', async () => {
+            const id = designIdInput.value.trim();
+            if (!id) {
+                showError('Please enter a transaction ID');
+                return;
+            }
+            await fetchDesignResult(id);
+        });
+
+        // Upload Area Click
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Keyboard support for upload area
+        uploadArea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImage(file);
+            } else {
+                showError('Please drop a valid image file');
+            }
+        });
+
+        // File Input Change
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleImage(file);
+        });
+
+        // Handle Image Processing
+        async function handleImage(file) {
+            // Validate file size
+            if (file.size > 10 * 1024 * 1024) {
+                showError('File size exceeds 10MB limit');
+                return;
+            }
+
+            startTime = Date.now();
+
+            // Show original image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.src = e.target.result;
+                const img = new Image();
+                img.onload = () => {
+                    dimensions.textContent = `${img.width}x${img.height}`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            fileSize.textContent = formatFileSize(file.size);
+
+            // Show loading
+            uploadArea.style.display = 'none';
+            loading.style.display = 'block';
+            previewArea.style.display = 'none';
+
+            try {
+                // API key is configured and ready
+
+                // Determine API endpoint and parameters based on selected type
+                let API_ENDPOINT, loadingText, successText;
+                const formData = new FormData();
+                formData.append('image', file);
+                
+                if (selectedType === 'vectorizer') {
+                    API_ENDPOINT = API_ENDPOINT_VECTORIZER;
+                    loadingText = '🎨 Converting to vector format...';
+                    successText = '✅ Image vectorized successfully!';
+                    formData.append('downscale_to', '2048');
+                } else if (selectedType === 'design-import') {
+                    API_ENDPOINT = API_ENDPOINT_DESIGN_IMPORT;
+                    loadingText = '📥 Importing design...';
+                    successText = '✅ Design imported! Copy the transaction ID below.';
+                }
+
+                // Update loading text
+                document.querySelector('.loading-text').textContent = loadingText;
+
+                // API Request
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'X-Picsart-API-Key': API_KEY
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (selectedType === 'design-import') {
+                    // Handle Design Import response
+                    if (data.status === 'success' && data.data && data.data.transaction_id) {
+                        designId = data.data.transaction_id;
+                        const endTime = Date.now();
+                        const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+                        processTime.textContent = `${timeTaken}s`;
+                        
+                        loading.style.display = 'none';
+                        uploadArea.style.display = 'block';
+                        
+                        // Show transaction ID in a special message
+                        showSuccess(`✅ Design imported successfully!\n\nTransaction ID: ${designId}\n\nCopy this ID to retrieve the result later.`);
+                    } else {
+                        throw new Error(data.message || 'Design import failed');
+                    }
+                } else {
+                    // Handle Vectorizer response
+                    if (data.status === 'success' && data.data && data.data.url) {
+                        resultUrl = data.data.url;
+                        resultImg.src = resultUrl;
+                        
+                        const endTime = Date.now();
+                        const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+                        processTime.textContent = `${timeTaken}s`;
+                        
+                        loading.style.display = 'none';
+                        previewArea.style.display = 'block';
+                        stats.style.display = 'block';
+                        showSuccess(successText);
+                    } else {
+                        throw new Error(data.message || 'Processing failed');
+                    }
+                }
+            } catch (err) {
+                loading.style.display = 'none';
+                uploadArea.style.display = 'block';
+                showError(err.message);
+                console.error(err);
+            }
+        }
+
+        // Download Result
+        downloadBtn.addEventListener('click', async () => {
+            if (resultUrl) {
+                try {
+                    downloadBtn.disabled = true;
+                    downloadBtn.textContent = '⏳ Downloading...';
+                    
+                    const response = await fetch(resultUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `result-${Date.now()}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    downloadBtn.textContent = '✅ Downloaded!';
+                    setTimeout(() => {
+                        downloadBtn.disabled = false;
+                        downloadBtn.textContent = '⬇️ Download Result';
+                    }, 2000);
+                } catch (err) {
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = '⬇️ Download Result';
+                    showError('Failed to download image');
+                }
+            }
+        });
+
+        // Upload New Image
+        newImageBtn.addEventListener('click', () => {
+            previewArea.style.display = 'none';
+            stats.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            resultUrl = '';
+        });
+
+// Fetch Design Result by ID
+async function fetchDesignResult(id) {
+    try {
+        loading.style.display = 'block';
+        getResultSection.style.display = 'none';
+        document.querySelector('.loading-text').textContent = '📋 Fetching design result...';
+
+        // Check API key
+        if (API_KEY === 'YOUR_API_KEY_HERE') {
+            throw new Error('Please add your Picsart API key in the code');
+        }
+
+        startTime = Date.now();
+
+        // API Request to get design result
+        const response = await fetch(`${API_ENDPOINT_GET_RESULT}${id}`, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'X-Picsart-API-Key': API_KEY
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success' && data.data && data.data.url) {
+            resultUrl = data.data.url;
+            resultImg.src = resultUrl;
+            originalImg.src = resultUrl; // Show same image in both
+            
+            const endTime = Date.now();
+            const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+            processTime.textContent = `${timeTaken}s`;
+            
+            loading.style.display = 'none';
+            previewArea.style.display = 'block';
+            stats.style.display = 'block';
+            showSuccess('✅ Design result retrieved successfully!');
+        } else {
+            throw new Error(data.message || 'Failed to retrieve design result');
+        }
+    } catch (err) {
+        loading.style.display = 'none';
+        getResultSection.style.display = 'block';
+        showError(err.message);
+        console.error(err);
+    }
+}
+</script>
+</body>
+</html>

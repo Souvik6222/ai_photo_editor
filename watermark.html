@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermark - Picsart API</title>
+    <link rel="stylesheet" href="shared-styles.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🎨 Picsart API</h2>
+            <p>Programmable Image Tools</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="home.html" class="menu-item">
+                <span class="menu-item-icon">🏠</span>
+                <span class="menu-item-text">Home</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            <div class="menu-section-title">Image Tools</div>
+            
+            <a href="remove-bg.html" class="menu-item">
+                <span class="menu-item-icon">🖼️</span>
+                <span class="menu-item-text">Remove Background</span>
+            </a>
+            
+            <a href="enhancement.html" class="menu-item">
+                <span class="menu-item-icon">✨</span>
+                <span class="menu-item-text">Photo Enhancement</span>
+            </a>
+            
+            <a href="watermark.html" class="menu-item active">
+                <span class="menu-item-icon">💧</span>
+                <span class="menu-item-text">Watermark</span>
+            </a>
+            
+            <a href="conversion.html" class="menu-item">
+                <span class="menu-item-icon">🔄</span>
+                <span class="menu-item-text">Conversion</span>
+            </a>
+            
+            <a href="utilities.html" class="menu-item">
+                <span class="menu-item-icon">🛠️</span>
+                <span class="menu-item-text">Image Upload</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <!-- Sidebar Advertisement -->
+            <div style="text-align: center; padding: 20px 10px;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '6239817a5426bca1b12532f991ab457e',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/6239817a5426bca1b12532f991ab457e/invoke.js"></script>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>💧 Watermark</h1>
+                <p class="subtitle">Add or remove watermarks</p>
+            </div>
+            
+            <!-- Top Banner Ad -->
+            <div style="text-align: center; margin: 20px 0;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '88a30d558b0ce128650a58dd786d60f2',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/88a30d558b0ce128650a58dd786d60f2/invoke.js"></script>
+            </div>
+            
+            <!-- Watermark Settings -->
+            <div style="background: linear-gradient(145deg, #f8f9ff, #ffffff); padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #667eea; margin-bottom: 20px; font-size: 1.1em; text-align: center;">⚙️ Watermark Settings</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Position</label>
+                        <select id="anchorPoint" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
+                            <option value="center-middle">Center</option>
+                            <option value="top-left">Top Left</option>
+                            <option value="top-middle">Top Center</option>
+                            <option value="top-right">Top Right</option>
+                            <option value="center-left">Center Left</option>
+                            <option value="center-right">Center Right</option>
+                            <option value="bottom-left">Bottom Left</option>
+                            <option value="bottom-middle">Bottom Center</option>
+                            <option value="bottom-right">Bottom Right</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Opacity (%)</label>
+                        <input type="number" id="watermarkOpacity" value="50" min="0" max="100" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
+                    </div>
+                    
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Padding X (px)</label>
+                        <input type="number" id="paddingX" value="0" min="0" max="500" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
+                    </div>
+                    
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Padding Y (px)</label>
+                        <input type="number" id="paddingY" value="0" min="0" max="500" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <label style="display: block; margin-bottom: 10px; color: #666; font-size: 0.9em;">💧 Watermark Image (Optional)</label>
+                    <input type="file" id="watermarkInput" accept="image/*" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
+                    <p style="margin-top: 5px; color: #999; font-size: 0.85em;">Upload your watermark logo/image (PNG recommended for transparency)</p>
+                </div>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📤</div>
+                <p>Click or drag & drop your main image here</p>
+                <p class="hint">Supports JPG, PNG, WEBP • Max 10MB</p>
+            </div>
+            
+            <input type="file" id="fileInput" accept="image/*">
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">💧 Processing watermark...</p>
+            </div>
+            
+            <div class="error" id="error"></div>
+            <div class="success" id="success"></div>
+            
+            <div class="preview-area" id="previewArea">
+                <div class="preview-container">
+                    <div class="preview-box">
+                        <h3>📷 Original Image</h3>
+                        <div class="image-wrapper">
+                            <img id="originalImg" alt="Original">
+                        </div>
+                    </div>
+                    <div class="preview-box">
+                        <h3>🎨 Result</h3>
+                        <div class="image-wrapper">
+                            <span class="image-badge">✨ AI Processed</span>
+                            <img id="resultImg" alt="Result">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats" id="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="fileSize">-</span>
+                        <span>File Size</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="dimensions">-</span>
+                        <span>Dimensions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="processTime">-</span>
+                        <span>Process Time</span>
+                    </div>
+                </div>
+                
+                <!-- Content Advertisement -->
+                <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(145deg, #f8f9ff, #ffffff); border-radius: 15px;">
+                    <script async="async" data-cfasync="false" src="//pl27910130.effectivegatecpm.com/bfad7f3288af73bf1c7d772d5671a0bd/invoke.js"></script>
+                    <div id="container-bfad7f3288af73bf1c7d772d5671a0bd"></div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn" id="downloadBtn">⬇️ Download Result</button>
+                    <button class="btn" id="newImageBtn">🔄 Upload New Image</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared-scripts.js"></script>
+    <script>
+        // API Configuration
+        const API_KEY = 'paat-txzJF6XHVCgJCUU8Fy0oBXEBmIq'; // Watermark API key
+        const API_ENDPOINT = 'https://api.picsart.io/tools/1.0/watermark';
+
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const watermarkInput = document.getElementById('watermarkInput');
+        const anchorPoint = document.getElementById('anchorPoint');
+        const watermarkOpacity = document.getElementById('watermarkOpacity');
+        const paddingX = document.getElementById('paddingX');
+        const paddingY = document.getElementById('paddingY');
+        const loading = document.getElementById('loading');
+        const previewArea = document.getElementById('previewArea');
+        const originalImg = document.getElementById('originalImg');
+        const resultImg = document.getElementById('resultImg');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newImageBtn = document.getElementById('newImageBtn');
+        const stats = document.getElementById('stats');
+        const fileSize = document.getElementById('fileSize');
+        const dimensions = document.getElementById('dimensions');
+        const processTime = document.getElementById('processTime');
+
+        let resultUrl = '';
+        let startTime = 0;
+
+        // Upload Area Click
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImage(file);
+            } else {
+                showError('Please drop a valid image file');
+            }
+        });
+
+        // File Input Change
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleImage(file);
+        });
+
+        // Handle Image Processing
+        async function handleImage(file) {
+            // Validate file size
+            if (file.size > 10 * 1024 * 1024) {
+                showError('File size exceeds 10MB limit');
+                return;
+            }
+
+            startTime = Date.now();
+
+            // Show original image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.src = e.target.result;
+                const img = new Image();
+                img.onload = () => {
+                    dimensions.textContent = `${img.width}x${img.height}`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            fileSize.textContent = formatFileSize(file.size);
+
+            // Show loading
+            uploadArea.style.display = 'none';
+            loading.style.display = 'block';
+            previewArea.style.display = 'none';
+
+            try {
+                // Prepare form data with watermark parameters
+                const formData = new FormData();
+                formData.append('image', file);
+                
+                // Add watermark image if provided
+                const watermarkFile = watermarkInput.files[0];
+                if (watermarkFile) {
+                    formData.append('watermark_image', watermarkFile);
+                }
+                
+                // Add watermark settings
+                formData.append('anchor_point', anchorPoint.value);
+                formData.append('watermark_opacity', watermarkOpacity.value);
+                formData.append('watermark_padding_x', paddingX.value);
+                formData.append('watermark_padding_y', paddingY.value);
+                formData.append('format', 'JPG');
+
+                // API Request
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'X-Picsart-API-Key': API_KEY
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success' && data.data && data.data.url) {
+                    resultUrl = data.data.url;
+                    resultImg.src = resultUrl;
+                    
+                    const endTime = Date.now();
+                    const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+                    processTime.textContent = `${timeTaken}s`;
+                    
+                    loading.style.display = 'none';
+                    previewArea.style.display = 'block';
+                    stats.style.display = 'block';
+                    showSuccess('✅ Watermark processed successfully!');
+                } else {
+                    throw new Error(data.message || 'Processing failed');
+                }
+            } catch (err) {
+                loading.style.display = 'none';
+                uploadArea.style.display = 'block';
+                showError(err.message);
+                console.error(err);
+            }
+        }
+
+        // Download Result
+        downloadBtn.addEventListener('click', async () => {
+            if (resultUrl) {
+                try {
+                    downloadBtn.disabled = true;
+                    downloadBtn.textContent = '⏳ Downloading...';
+                    
+                    const response = await fetch(resultUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `result-${Date.now()}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    downloadBtn.textContent = '✅ Downloaded!';
+                    setTimeout(() => {
+                        downloadBtn.disabled = false;
+                        downloadBtn.textContent = '⬇️ Download Result';
+                    }, 2000);
+                } catch (err) {
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = '⬇️ Download Result';
+                    showError('Failed to download image');
+                }
+            }
+        });
+
+        // Upload New Image
+        newImageBtn.addEventListener('click', () => {
+            previewArea.style.display = 'none';
+            stats.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            resultUrl = '';
+        });
+    </script>
+</body>
+</html>
