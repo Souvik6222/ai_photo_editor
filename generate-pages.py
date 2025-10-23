@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate all feature pages for Picsart API Tools
+Generate all feature pages for Pixverse ai Tools
 Run this script to create all remaining HTML pages
 """
 
@@ -119,7 +119,7 @@ pages = [
 # Navigation menu HTML
 nav_menu = '''<aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>🎨 Picsart API</h2>
+            <h2>🎨 Pixverse ai</h2>
             <p>Programmable Image Tools</p>
         </div>
         <nav class="sidebar-menu">
@@ -209,7 +209,7 @@ def generate_page(page_info):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{page_info["title"]} - Picsart API</title>
+    <title>{page_info["title"]} - Pixverse ai</title>
     <link rel="stylesheet" href="shared-styles.css">
 </head>
 <body>
@@ -306,7 +306,7 @@ def generate_page(page_info):
     <script src="shared-scripts.js"></script>
     <script>
         // API Configuration
-        const API_KEY = 'YOUR_API_KEY_HERE'; // TODO: Replace with your Picsart API key
+        const API_KEY = 'YOUR_API_KEY_HERE'; // TODO: Replace with your Pixverse ai key
         const API_ENDPOINT = '{page_info["api_endpoint"]}';
 
         // DOM Elements
@@ -390,7 +390,7 @@ def generate_page(page_info):
             try {{
                 // Check API key
                 if (API_KEY === 'YOUR_API_KEY_HERE') {{
-                    throw new Error('Please add your Picsart API key in the code');
+                    throw new Error('Please add your Pixverse ai key in the code');
                 }}
 
                 // Prepare form data
@@ -487,6 +487,6 @@ if __name__ == '__main__':
     
     print("\n🎉 All pages generated successfully!")
     print("\nNext steps:")
-    print("1. Add your Picsart API key to each page")
+    print("1. Add your Pixverse ai key to each page")
     print("2. Test each feature")
     print("3. Customize API parameters as needed")

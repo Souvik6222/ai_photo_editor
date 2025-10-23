@@ -1,4 +1,4 @@
-# 🎨 Picsart API Tools - Complete Multi-Page Website
+# 🎨 Pixverse ai Tools - Complete Multi-Page Website
 
 ## ✅ Project Complete!
 
@@ -54,14 +54,14 @@ Open each HTML file and find this line (around line 210):
 const API_KEY = 'YOUR_API_KEY_HERE';
 ```
 
-Replace with your actual Picsart API key:
+Replace with your actual Pixverse ai key:
 ```javascript
-const API_KEY = 'your-actual-picsart-api-key';
+const API_KEY = 'your-actual-pixverse-ai-key';
 ```
 
 ### Step 2: Get Your API Key
 
-1. Visit [Picsart API](https://picsart.io/api)
+1. Visit [Pixverse ai](https://picsart.io/api)
 2. Sign up for an account
 3. Get your API key from the dashboard
 4. Copy the key to all HTML files
@@ -75,7 +75,7 @@ const API_KEY = 'your-actual-picsart-api-key';
 
 ## 📖 API Endpoints Reference
 
-Each page uses a specific Picsart API endpoint:
+Each page uses a specific Pixverse ai endpoint:
 
 | Page | Endpoint | Description |
 |------|----------|-------------|
@@ -90,7 +90,7 @@ Each page uses a specific Picsart API endpoint:
 | classification.html | `/tools/1.0/classify` | Classify images |
 | utilities.html | `/tools/1.0/utilities` | Utility tools |
 
-**Note:** Check [Picsart API Documentation](https://docs.picsart.io/) for actual endpoint URLs and parameters.
+**Note:** Check [Pixverse ai Documentation](https://docs.picsart.io/) for actual endpoint URLs and parameters.
 
 ## 🎨 Customization
 
@@ -148,11 +148,11 @@ All pages are fully responsive and work on:
 
 ## 🐛 Troubleshooting
 
-### Issue: "Please add your Picsart API key"
+### Issue: "Please add your Pixverse ai key"
 **Solution:** Replace `YOUR_API_KEY_HERE` with your actual API key in each HTML file.
 
 ### Issue: CORS errors
-**Solution:** Picsart API should handle CORS. If you get errors, ensure you're using a valid API key and the correct endpoint.
+**Solution:** Pixverse ai should handle CORS. If you get errors, ensure you're using a valid API key and the correct endpoint.
 
 ### Issue: Ads not showing
 **Solution:** Ads may take a few seconds to load. Test on a live server, not `file://` protocol.
@@ -162,8 +162,8 @@ All pages are fully responsive and work on:
 
 ## 📚 Resources
 
-- [Picsart API Documentation](https://docs.picsart.io/)
-- [Picsart API Console](https://console.picsart.io/)
+- [Pixverse ai Documentation](https://docs.picsart.io/)
+- [Pixverse ai Console](https://console.picsart.io/)
 - [API Support](https://picsart.io/api/support)
 
 ## 🎉 What's Next?
@@ -183,6 +183,6 @@ All pages are fully responsive and work on:
 
 ---
 
-**🎨 Your complete Picsart API Tools website is ready!**
+**🎨 Your complete Pixverse ai Tools website is ready!**
 
 Just add your API key and start processing images! ✨
