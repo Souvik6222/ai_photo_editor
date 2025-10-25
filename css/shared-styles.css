@@ -466,6 +466,14 @@ body {
     margin-bottom: 40px;
 }
 
+.header h1 svg {
+    stroke: #667eea;
+}
+
+[data-theme="dark"] .header h1 svg {
+    stroke: #818cf8;
+}
+
 h1 {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
@@ -529,6 +537,24 @@ h1 {
     display: inline-block;
     animation: float 3s ease-in-out infinite;
     filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.2));
+}
+
+.upload-icon svg {
+    stroke: #667eea;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .upload-icon svg {
+    stroke: #818cf8;
+}
+
+.upload-area:hover .upload-icon svg {
+    stroke: #764ba2;
+    transform: translateY(-5px);
+}
+
+[data-theme="dark"] .upload-area:hover .upload-icon svg {
+    stroke: #a78bfa;
 }
 
 @keyframes float {
@@ -1534,6 +1560,14 @@ h1 {
 
 [data-theme="dark"] .info-box h3 {
     color: #818cf8;
+}
+
+.info-box h3 svg {
+    stroke: #667eea;
+}
+
+[data-theme="dark"] .info-box h3 svg {
+    stroke: #818cf8;
 }
 
 .info-box p {
