@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,30 @@
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>🎨 Pixverse ai</h2>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg id="sunIcon" viewBox="0 0 24 24" style="display: none;">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg id="moonIcon" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <div class="logo-container">
+                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <h2>Pixverse ai</h2>
             <p>Programmable Image Tools</p>
         </div>
         <nav class="sidebar-menu">
@@ -62,9 +85,9 @@
                 <p class="subtitle">Upload images to Picsart cloud and get shareable URLs</p>
             </div>
             <!-- Upload Info -->
-            <div style="background: linear-gradient(145deg, #f8f9ff, #ffffff); padding: 20px; border-radius: 15px; margin-bottom: 20px; text-align: center;">
-                <h3 style="color: #667eea; margin-bottom: 10px;">📤 Image Upload Utility</h3>
-                <p style="color: #666; font-size: 0.95em;">Upload your images to Picsart cloud storage and receive a permanent URL that you can use in other API calls or share with others.</p>
+            <div class="info-box">
+                <h3>📤 Image Upload Utility</h3>
+                <p>Upload your images to Picsart cloud storage and receive a permanent URL that you can use in other API calls or share with others.</p>
             </div>
             
             <div class="upload-area" id="uploadArea">
@@ -122,6 +145,7 @@
         </div>
     </main>
 
+    <script src="../js/theme.js"></script>
     <script src="../js/shared-scripts.js"></script>
     <script>
         // API Configuration
