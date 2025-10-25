@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Editing - Pixverse ai</title>
-    <link rel="stylesheet" href="shared-styles.css">
+    <title>Image Classification - Pixverse ai</title>
+    <link rel="stylesheet" href="../css/shared-styles.css">
 </head>
 <body>
     <div class="particles" id="particles"></div>
@@ -40,7 +40,7 @@
                 <span class="menu-item-text">Effects</span>
             </a>
             
-            <a href="editing.html" class="menu-item active">
+            <a href="editing.html" class="menu-item">
                 <span class="menu-item-icon">✂️</span>
                 <span class="menu-item-text">Editing</span>
             </a>
@@ -65,7 +65,7 @@
                 <span class="menu-item-text">Watermark</span>
             </a>
             
-            <a href="classification.html" class="menu-item">
+            <a href="classification.html" class="menu-item active">
                 <span class="menu-item-icon">🏷️</span>
                 <span class="menu-item-text">Classification</span>
             </a>
@@ -77,19 +77,6 @@
             
             <div class="menu-divider"></div>
             
-            <!-- Sidebar Advertisement -->
-            <div style="text-align: center; padding: 20px 10px;">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : '6239817a5426bca1b12532f991ab457e',
-                        'format' : 'iframe',
-                        'height' : 50,
-                        'width' : 320,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/6239817a5426bca1b12532f991ab457e/invoke.js"></script>
-            </div>
         </nav>
     </aside>
     
@@ -97,22 +84,8 @@
     <main class="main-content">
         <div class="container">
             <div class="header">
-                <h1>✂️ Image Editing</h1>
-                <p class="subtitle">Professional image editing tools</p>
-            </div>
-            
-            <!-- Top Banner Ad -->
-            <div style="text-align: center; margin: 20px 0;">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : '88a30d558b0ce128650a58dd786d60f2',
-                        'format' : 'iframe',
-                        'height' : 90,
-                        'width' : 728,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/88a30d558b0ce128650a58dd786d60f2/invoke.js"></script>
+                <h1>🏷️ Image Classification</h1>
+                <p class="subtitle">Classify and tag images with AI</p>
             </div>
             
             <div class="upload-area" id="uploadArea">
@@ -125,7 +98,7 @@
             
             <div class="loading" id="loading">
                 <div class="spinner"></div>
-                <p class="loading-text">✂️ Editing your image...</p>
+                <p class="loading-text">🏷️ Classifying image...</p>
             </div>
             
             <div class="error" id="error"></div>
@@ -162,13 +135,6 @@
                         <span>Process Time</span>
                     </div>
                 </div>
-                
-                <!-- Content Advertisement -->
-                <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(145deg, #f8f9ff, #ffffff); border-radius: 15px;">
-                    <script async="async" data-cfasync="false" src="//pl27910130.effectivegatecpm.com/bfad7f3288af73bf1c7d772d5671a0bd/invoke.js"></script>
-                    <div id="container-bfad7f3288af73bf1c7d772d5671a0bd"></div>
-                </div>
-                
                 <div class="buttons">
                     <button class="btn" id="downloadBtn">⬇️ Download Result</button>
                     <button class="btn" id="newImageBtn">🔄 Upload New Image</button>
@@ -177,11 +143,11 @@
         </div>
     </main>
 
-    <script src="shared-scripts.js"></script>
+    <script src="../js/shared-scripts.js"></script>
     <script>
         // API Configuration
         const API_KEY = 'YOUR_API_KEY_HERE'; // TODO: Replace with your Pixverse ai key
-        const API_ENDPOINT = 'https://api.picsart.io/tools/1.0/edit';
+        const API_ENDPOINT = 'https://api.picsart.io/tools/1.0/classify';
 
         // DOM Elements
         const uploadArea = document.getElementById('uploadArea');
@@ -271,7 +237,6 @@
                 const formData = new FormData();
 
                 formData.append('image', file);
-                formData.append('format', 'PNG');
 
                 // API Request
                 const response = await fetch(API_ENDPOINT, {
@@ -296,7 +261,7 @@
                     loading.style.display = 'none';
                     previewArea.style.display = 'block';
                     stats.style.display = 'block';
-                    showSuccess('✅ Image edited successfully!');
+                    showSuccess('✅ Image classified successfully!');
                 } else {
                     throw new Error(data.message || 'Processing failed');
                 }

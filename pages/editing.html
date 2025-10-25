@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watermark - Pixverse ai</title>
-    <link rel="stylesheet" href="shared-styles.css">
+    <title>Image Editing - Pixverse ai</title>
+    <link rel="stylesheet" href="../css/shared-styles.css">
 </head>
 <body>
     <div class="particles" id="particles"></div>
@@ -35,9 +35,19 @@
                 <span class="menu-item-text">Photo Enhancement</span>
             </a>
             
-            <a href="watermark.html" class="menu-item active">
-                <span class="menu-item-icon">💧</span>
-                <span class="menu-item-text">Watermark</span>
+            <a href="effects.html" class="menu-item">
+                <span class="menu-item-icon">🎭</span>
+                <span class="menu-item-text">Effects</span>
+            </a>
+            
+            <a href="editing.html" class="menu-item active">
+                <span class="menu-item-icon">✂️</span>
+                <span class="menu-item-text">Editing</span>
+            </a>
+            
+            <a href="content.html" class="menu-item">
+                <span class="menu-item-icon">🎨</span>
+                <span class="menu-item-text">Content Generation</span>
             </a>
             
             <a href="conversion.html" class="menu-item">
@@ -45,26 +55,27 @@
                 <span class="menu-item-text">Conversion</span>
             </a>
             
+            <a href="surfacemap.html" class="menu-item">
+                <span class="menu-item-icon">🗺️</span>
+                <span class="menu-item-text">Surfacemap</span>
+            </a>
+            
+            <a href="watermark.html" class="menu-item">
+                <span class="menu-item-icon">💧</span>
+                <span class="menu-item-text">Watermark</span>
+            </a>
+            
+            <a href="classification.html" class="menu-item">
+                <span class="menu-item-icon">🏷️</span>
+                <span class="menu-item-text">Classification</span>
+            </a>
+            
             <a href="utilities.html" class="menu-item">
                 <span class="menu-item-icon">🛠️</span>
-                <span class="menu-item-text">Image Upload</span>
+                <span class="menu-item-text">Utilities</span>
             </a>
             
             <div class="menu-divider"></div>
-            
-            <!-- Sidebar Advertisement -->
-            <div style="text-align: center; padding: 20px 10px;">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : '6239817a5426bca1b12532f991ab457e',
-                        'format' : 'iframe',
-                        'height' : 50,
-                        'width' : 320,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/6239817a5426bca1b12532f991ab457e/invoke.js"></script>
-            </div>
         </nav>
     </aside>
     
@@ -72,70 +83,13 @@
     <main class="main-content">
         <div class="container">
             <div class="header">
-                <h1>💧 Watermark</h1>
-                <p class="subtitle">Add or remove watermarks</p>
-            </div>
-            
-            <!-- Top Banner Ad -->
-            <div style="text-align: center; margin: 20px 0;">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : '88a30d558b0ce128650a58dd786d60f2',
-                        'format' : 'iframe',
-                        'height' : 90,
-                        'width' : 728,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/88a30d558b0ce128650a58dd786d60f2/invoke.js"></script>
-            </div>
-            
-            <!-- Watermark Settings -->
-            <div style="background: linear-gradient(145deg, #f8f9ff, #ffffff); padding: 25px; border-radius: 15px; margin-bottom: 20px;">
-                <h3 style="color: #667eea; margin-bottom: 20px; font-size: 1.1em; text-align: center;">⚙️ Watermark Settings</h3>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    <div>
-                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Position</label>
-                        <select id="anchorPoint" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
-                            <option value="center-middle">Center</option>
-                            <option value="top-left">Top Left</option>
-                            <option value="top-middle">Top Center</option>
-                            <option value="top-right">Top Right</option>
-                            <option value="center-left">Center Left</option>
-                            <option value="center-right">Center Right</option>
-                            <option value="bottom-left">Bottom Left</option>
-                            <option value="bottom-middle">Bottom Center</option>
-                            <option value="bottom-right">Bottom Right</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Opacity (%)</label>
-                        <input type="number" id="watermarkOpacity" value="50" min="0" max="100" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
-                    </div>
-                    
-                    <div>
-                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Padding X (px)</label>
-                        <input type="number" id="paddingX" value="0" min="0" max="500" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
-                    </div>
-                    
-                    <div>
-                        <label style="display: block; margin-bottom: 5px; color: #666; font-size: 0.9em;">Padding Y (px)</label>
-                        <input type="number" id="paddingY" value="0" min="0" max="500" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
-                    </div>
-                </div>
-                
-                <div style="margin-top: 15px;">
-                    <label style="display: block; margin-bottom: 10px; color: #666; font-size: 0.9em;">💧 Watermark Image (Optional)</label>
-                    <input type="file" id="watermarkInput" accept="image/*" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
-                    <p style="margin-top: 5px; color: #999; font-size: 0.85em;">Upload your watermark logo/image (PNG recommended for transparency)</p>
-                </div>
+                <h1>✂️ Image Editing</h1>
+                <p class="subtitle">Professional image editing tools</p>
             </div>
             
             <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">📤</div>
-                <p>Click or drag & drop your main image here</p>
+                <p>Click or drag & drop an image here</p>
                 <p class="hint">Supports JPG, PNG, WEBP • Max 10MB</p>
             </div>
             
@@ -143,7 +97,7 @@
             
             <div class="loading" id="loading">
                 <div class="spinner"></div>
-                <p class="loading-text">💧 Processing watermark...</p>
+                <p class="loading-text">✂️ Editing your image...</p>
             </div>
             
             <div class="error" id="error"></div>
@@ -180,13 +134,6 @@
                         <span>Process Time</span>
                     </div>
                 </div>
-                
-                <!-- Content Advertisement -->
-                <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(145deg, #f8f9ff, #ffffff); border-radius: 15px;">
-                    <script async="async" data-cfasync="false" src="//pl27910130.effectivegatecpm.com/bfad7f3288af73bf1c7d772d5671a0bd/invoke.js"></script>
-                    <div id="container-bfad7f3288af73bf1c7d772d5671a0bd"></div>
-                </div>
-                
                 <div class="buttons">
                     <button class="btn" id="downloadBtn">⬇️ Download Result</button>
                     <button class="btn" id="newImageBtn">🔄 Upload New Image</button>
@@ -195,20 +142,15 @@
         </div>
     </main>
 
-    <script src="shared-scripts.js"></script>
+    <script src="../js/shared-scripts.js"></script>
     <script>
         // API Configuration
-        const API_KEY = 'paat-txzJF6XHVCgJCUU8Fy0oBXEBmIq'; // Watermark API key
-        const API_ENDPOINT = 'https://api.picsart.io/tools/1.0/watermark';
+        const API_KEY = 'YOUR_API_KEY_HERE'; // TODO: Replace with your Pixverse ai key
+        const API_ENDPOINT = 'https://api.picsart.io/tools/1.0/edit';
 
         // DOM Elements
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
-        const watermarkInput = document.getElementById('watermarkInput');
-        const anchorPoint = document.getElementById('anchorPoint');
-        const watermarkOpacity = document.getElementById('watermarkOpacity');
-        const paddingX = document.getElementById('paddingX');
-        const paddingY = document.getElementById('paddingY');
         const loading = document.getElementById('loading');
         const previewArea = document.getElementById('previewArea');
         const originalImg = document.getElementById('originalImg');
@@ -285,22 +227,16 @@
             previewArea.style.display = 'none';
 
             try {
-                // Prepare form data with watermark parameters
-                const formData = new FormData();
-                formData.append('image', file);
-                
-                // Add watermark image if provided
-                const watermarkFile = watermarkInput.files[0];
-                if (watermarkFile) {
-                    formData.append('watermark_image', watermarkFile);
+                // Check API key
+                if (API_KEY === 'YOUR_API_KEY_HERE') {
+                    throw new Error('Please add your Pixverse ai key in the code');
                 }
-                
-                // Add watermark settings
-                formData.append('anchor_point', anchorPoint.value);
-                formData.append('watermark_opacity', watermarkOpacity.value);
-                formData.append('watermark_padding_x', paddingX.value);
-                formData.append('watermark_padding_y', paddingY.value);
-                formData.append('format', 'JPG');
+
+                // Prepare form data
+                const formData = new FormData();
+
+                formData.append('image', file);
+                formData.append('format', 'PNG');
 
                 // API Request
                 const response = await fetch(API_ENDPOINT, {
@@ -325,7 +261,7 @@
                     loading.style.display = 'none';
                     previewArea.style.display = 'block';
                     stats.style.display = 'block';
-                    showSuccess('✅ Watermark processed successfully!');
+                    showSuccess('✅ Image edited successfully!');
                 } else {
                     throw new Error(data.message || 'Processing failed');
                 }
