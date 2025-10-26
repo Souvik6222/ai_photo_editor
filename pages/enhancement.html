@@ -116,8 +116,8 @@
                 <p class="subtitle">Enhance image quality with AI-powered tools</p>
             </div>
 
-            <!-- Ad Banner 728x90 -->
-            <div style="text-align: center; margin: 25px auto; max-width: 728px;">
+            <!-- Ad Banner 728x90 - Desktop Only -->
+            <div class="ad-desktop" style="text-align: center; margin: 25px auto; max-width: 728px; overflow: hidden;">
                 <script type="text/javascript">
                     atOptions = {
                         'key' : '5f44cef3c5b73cb5b9ac5664a0c0816e',
@@ -129,6 +129,27 @@
                 </script>
                 <script type="text/javascript" src="//www.highperformanceformat.com/5f44cef3c5b73cb5b9ac5664a0c0816e/invoke.js"></script>
             </div>
+            
+            <!-- Mobile Ad Alternative - Mobile Only -->
+            <div class="ad-mobile-top" style="text-align: center; margin: 20px auto; max-width: 320px; display: none;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '488949db17aa4ed07a2c5132eba69205',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/488949db17aa4ed07a2c5132eba69205/invoke.js"></script>
+            </div>
+            
+            <style>
+                @media (max-width: 768px) {
+                    .ad-desktop { display: none !important; }
+                    .ad-mobile-top { display: block !important; }
+                }
+            </style>
 
             <!-- Enhancement Type Selection -->
             <div class="enhancement-type-container">
